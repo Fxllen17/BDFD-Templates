@@ -25,7 +25,7 @@ $c[Limiter v1]
 $onlyIf[$var[User]!=$authorID;:x: You can't timeout/untimeout yourself.]
 $onlyIf[$var[User]!=$serverOwner;:x: Timeout/untimeout is not supported towards server owner.]
 $onlyIf[$var[User]!=$botID;:x: Timeout/untimeout is not supported towards me.]
-$onlyIf[$rolePosition[$highestRole[$var[User]]]>$rolePosition[$highestRole[$authorID]];:x: You can't timeout/untimeout members having roles higher than you.]
+$onlyIf[$rolePosition[$highestRole[$var[User]]]>$rolePosition[$highestRole[$authorID]];:x: You can't timeout/untimeout members having roles higher or equal than you.]
 $onlyIf[$rolePosition[$highestRole[$var[User]]]>$rolePosition[$highestRole[$botID]];:x: I can't timeout/untimeout members having roles higher than me.]
 
 $c[Untimeout Embed]
@@ -96,5 +96,5 @@ $endif
 
 $c[Timeout embed]
 $description[has been **Timeout** for $var[Time] by <@$authorID>]
-$timeout[$var[Duration];$var[User]]
+$timeout[$var[Lowercase];$var[User]]
 $endif
