@@ -1,3 +1,5 @@
+$onlyIf[$guildID!=;]
+
 $onlyPerms[moderatemembers;:x: Missing `Moderate_Members` permission.]
 $onlyBotPerms[moderatemembers;:x: I am missing `Moderate_Members` permission.]
 
