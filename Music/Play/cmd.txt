@@ -1,0 +1,42 @@
+$nomention
+$reply
+$allowUserMentions[]
+$onlyIf[$guildID!=;]
+$botTyping
+$onlyBotPerms[connect;:x: Missing `connect` permission]
+$onlyBotPerms[speak;:x: Missing `speak` permission]
+$argsCheck[>1;Type a song to play]
+$async[a]
+$httpGet[$getUserVar[Music;$authorID]/voice_channel_id/$guildID/$authorID]
+$httpPost[$getUserVar[Music;$authorID]/join_voice_channel;{"id":"$httpResult[voice_id]"}]
+$onlyIf[$httpResult[voice_id]!=;You are not connected to any voice channel]
+$httpPost[$getUserVar[Music;$authorID]/search_and_play/$guildID?q=$url[encode;$message]]
+$onlyIf[$httpResult[type]==SUCCESS;Failed to find the requested song!]
+$var[a;$httpResult[playing_now]]
+$endasync
+$suppressErrors
+$await[a]
+
+$if[$var[a]]
+    $setServerVar[Track;0;$guildID]
+    $httpGet[$getUserVar[Music;$authorID]/track_info/$guildID?offset=1]
+    $author[Playing now!]
+$elseif[$var[a]==false]
+     $setServerVar[Track;$sum[$getServerVar[Track;$guildID];1];$guildID]
+     $httpGet[$getUserVar[Music;$authorID]/track_info/$guildID?offset=$sum[$getServerVar[Track;$guildID];1]]
+     $author[Added to Queue - #$sum[$getServerVar[Track;$guildID];1]]
+$endif
+
+$textSplit[$httpResult[duration];.]
+$enableDecimals[no]
+$var[Secs;$divide[$splitText[1];1000]]
+$var[Mins;$divide[$var[Secs];60]]
+
+$title[$httpResult[title]]
+$embeddedURL[$httpResult[url]]
+$addField[Author;╰ `$httpResult[author]`;yes]
+$addField[Duration;╰ `$var[Mins] Minutes $calculate[$var[Secs]-($var[Mins]*60)] Seconds`;yes]
+$image[$replaceText[$httpResult[thumbnail];2048.jpg;maxresdefault.jpg]]
+$color[a86df8]
+$footer[#$channelName[$channelID] | $username#$discriminator[]]
+$footerIcon[$authorAvatar]
