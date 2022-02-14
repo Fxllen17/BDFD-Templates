@@ -1,0 +1,71 @@
+$c[Basic Functions]
+$nomention
+$ignoreTriggerCase
+$reply
+$allowUserMentions[]
+$onlyIf[$guildID!=;]
+$alternativeParsing
+$botTyping
+$argsCheck[>1;Type a song to play]
+
+$c[Bot Permissions]
+$onlyBotPerms[connect;:x: Missing `connect` permission]
+$onlyBotPerms[speak;:x: Missing `speak` permission]
+
+$c[Return error message if you don't have the variables]
+$varExistError[Music;You don't have a variable named ` Music `, Create the variable and put your lavalink replit link there. Check https://youtu.be/oe6TO4sZWcI for tutorial]
+$varExistError[Track;Create a variable in the app named ` Track ` and put 0 as value]
+
+$cooldown[2s;Slow up buddy!]
+
+$c[Don't mess here if you are clueless]
+$async[a]
+  $httpGet[$getVar[Music]/voice_channel_id/$guildID/$authorID]  $c[Gets author's voice channel ID]
+  $onlyIf[$httpResult[voice_id]!=;You are not connected to any voice channel]  $c[Checks if author is present in the voice channel]
+  $httpPost[$getVar[Music]/join_voice_channel;{"id":"$httpResult[voice_id]"}]  $c[Bot joins author's voice channel]
+  $httpPost[$getVar[Music]/search_and_play/$guildID?q=$url[encode;$message]]  $c[Searches and plays your requested query]
+  $onlyIf[$httpResult[type]==SUCCESS;An error has been occurred!]  $c[A limiter error message when if API can't process the requested query]
+  $var[a;$httpResult[playing_now]]  $c[Saving a httpresult value (Returns true if song is being played and false if queued) in a temp var]
+$endasync
+
+$suppressErrors $c[If bot plays music but no message is being sent, remove this function (suppressError) to check if it is returning some errors or not]
+$await[a]
+
+$if[$var[a]]  $c[Sets playing song info if temp var value is true]
+  $setServerVar[Track;0]
+  $httpGet[$getVar[Music]/track_info/$guildID?offset=1]
+  $author[Playing now!]
+$else  $c[Sets queued song info if temp var value is false]
+     $setServerVar[Track;$sum[$getServerVar[Track];1]]
+     $httpGet[$getVar[Music]/track_info/$guildID?offset=$sum[$getServerVar[Track];1]]
+     $author[Added to Queue - #$sum[$getServerVar[Track];1]]
+$endif
+
+$c[Some Maths calculations (Conversions of track duration in milliseconds to mins and seconds]
+$textSplit[$httpResult[duration];.]
+$enableDecimals[no]
+$var[Secs;$divide[$splitText[1];1000]]
+$var[Mins;$divide[$var[Secs];60]]
+$var[Sec;$calculate[$var[Secs]-($var[Mins]*60)]]
+
+$if[$var[Sec]<10]
+    $var[S;$var[Sec] Second]
+$else
+     $var[S;$var[Sec] Seconds]
+$endif
+$if[$var[Mins]<10]
+    $var[M;$var[Mins] Minute]
+$else
+     $var[M;$var[Mins] Minutes]
+$endif
+
+
+$c[Output embed]
+$title[$httpResult[title]]
+$embeddedURL[$httpResult[url]]
+$addField[Author;╰ ` $httpResult[author] `;yes]
+$addField[Duration;╰ ` $var[M] $var[S] `;yes]
+$image[$replaceText[$httpResult[thumbnail];2048.jpg;maxresdefault.jpg]]
+$color[a86df8]
+$footer[#$channelName[$channelID] | $username#$discriminator[]]
+$footerIcon[$authorAvatar]
