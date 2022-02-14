@@ -1,3 +1,7 @@
+# Important
+Variables needed
+- Music (Value - Your replit link)
+
 # Screenshot
 Queue
 
