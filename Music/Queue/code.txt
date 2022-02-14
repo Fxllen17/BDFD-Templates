@@ -1,0 +1,76 @@
+$nomention
+$ignoreTriggerCase
+$reply
+$allowUserMentions[]
+$onlyIf[$guildID!=;]
+$alternativeParsing
+$botTyping
+
+$c[Return error message if you don't have the variables]
+$varExistError[Music;You don't have a variable named ` Music `, Create the variable and put your lavalink replit link there. Check https://youtu.be/oe6TO4sZWcI for tutorial]
+
+$async[1]
+$httpGet[$getVar[Music]/track_info/$guildID?offset=2]
+$var[1;$httpResult[title]] $var[1a;$httpResult[url]]
+$endasync
+$await[1]
+$async[2]
+$httpGet[$getVar[Music]/track_info/$guildID?offset=3]
+$var[2;$httpResult[title]] $var[2a;$httpResult[url]]
+$endasync
+$await[2]
+$async[3]
+$httpGet[$getVar[Music]/track_info/$guildID?offset=4]
+$var[3;$httpResult[title]] $var[3a;$httpResult[url]]
+$endasync
+$await[3]
+$async[4]
+$httpGet[$getVar[Music]/track_info/$guildID?offset=5]
+$var[4;$httpResult[title]] $var[4a;$httpResult[url]]
+$endasync
+$await[4]
+$async[5]
+$httpGet[$getVar[Music]/track_info/$guildID?offset=6]
+$var[5;$httpResult[title]] $var[5a;$httpResult[url]]
+$endasync
+$await[5]
+$async[6]
+$httpGet[$getVar[Music]/track_info/$guildID?offset=7]
+$var[6;$httpResult[title]] $var[6a;$httpResult[url]]
+$endasync
+$await[6]
+$async[7]
+$httpGet[$getVar[Music]/track_info/$guildID?offset=8]
+$var[7;$httpResult[title]] $var[7a;$httpResult[url]]
+$endasync
+$await[7]
+$async[8]
+$httpGet[$getVar[Music]/track_info/$guildID?offset=9]
+$var[8;$httpResult[title]] $var[8a;$httpResult[url]]
+$endasync
+$await[8]
+$async[9]
+$httpGet[$getVar[Music]/track_info/$guildID?offset=10]
+$var[9;$httpResult[title]] $var[9a;$httpResult[url]]
+$endasync
+$await[9]
+$async[10]
+$httpGet[$getVar[Music]/track_info/$guildID?offset=11]
+$var[10;$httpResult[title]] $var[10a;$httpResult[url]]$endasync
+$await[10]
+
+
+$description[$if[$var[1]!=]1. [$var[1]\]($var[1a])$endif
+$if[$var[2]!=]2. [$var[2]\]($var[2a])$endif
+$if[$var[3]!=]3. [$var[3]\]($var[3a])$endif
+$if[$var[4]!=]4. [$var[4]\]($var[4a])$endif
+$if[$var[5]!=]5. [$var[5]\]($var[5a])$endif
+$if[$var[6]!=]6. [$var[6]\]($var[6a])$endif
+$if[$var[7]!=]7. [$var[7]\]($var[7a])$endif
+$if[$var[8]!=]8. [$var[8]\]($var[8a])$endif
+$if[$var[9]!=]9. [$var[9]\]($var[9a])$endif
+$if[$var[10]!=]10. [$var[10]\]($var[10a])$endif]
+$color[a86df8]
+$footer[#$channelName[$channelID]]
+$addTimestamp
+$author[Queue]
