@@ -2,6 +2,9 @@
 Variables needed
 - Music (Value - Your replit link)
 
+# Info
+- Shows Max 10 songs (for now) *will do page support later
+
 # Screenshot
 Queue
 
