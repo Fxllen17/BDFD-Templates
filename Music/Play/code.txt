@@ -14,42 +14,37 @@ $varExistError[Track;Create a variable in the app named ` Track ` and put 0 as v
 
 $cooldown[2s;Slow up buddy!]
 
-$async[a]
-  $httpGet[$getVar[Music]/voice_channel_id/$guildID/$authorID]
-  $onlyIf[$httpResult[voice_id]!=;You are not connected to any voice channel]
-  $httpPost[$getVar[Music]/join_voice_channel;{"id":"$httpResult[voice_id]"}]
-  $httpPost[$getVar[Music]/search_and_play/$guildID?q=$url[encode;$message]]
-  $var[a;$httpResult[playing_now]]
-  $var[b;$httpResult[title]]
-$endasync
-$await[a]
+$httpGet[$getVar[Music]/voice_channel_id/$guildID/$authorID]
+$onlyIf[$httpResult[voice_id]!=;You are not connected to any voice channel]
+$httpPost[$getVar[Music]/join_voice_channel;{"id":"$httpResult[voice_id]"}]
+$httpPost[$getVar[Music]/search_and_play/$guildID?q=$url[encode;$message]]
+$var[a;$httpResult[playing_now]]
+$var[b;$httpResult[title]]
 
-$if[$var[a]==true]
-    $botTyping
-    $httpGet[$getVar[Music]/track_info/$guildID]
-    $author[Playing now!]
-    $textSplit[$httpResult[duration];.]
-    $enableDecimals[no]
-    $var[Secs;$divide[$splitText[1];1000]]
-    $var[Mins;$divide[$var[Secs];60]]
-    $var[Sec;$calculate[$var[Secs]-($var[Mins]*60)]]
-
-    $if[$var[Sec]<10] $var[S;$var[Sec] Second] $else $var[S;$var[Sec] Seconds] $endif
-    $if[$var[Mins]<10] $var[M;$var[Mins] Minute] $else $var[M;$var[Mins] Minutes] $endif
-  
-    $title[$httpResult[title]]
-    $embeddedURL[$httpResult[url]]
-    $addField[Author;╰ ` $httpResult[author] `;yes]
-    $addField[Duration;╰ ` $var[M] $var[S] `;yes]
-    $image[$replaceText[$httpResult[thumbnail];2048.jpg;maxresdefault.jpg]]
-    $color[a86df8]
-    $footer[#$channelName[$channelID] | $username#$discriminator[]]
-    $footerIcon[$authorAvatar]
+$if[$var[a]]
+$botTyping
+$httpGet[$getVar[Music]/track_info/$guildID]
+$textSplit[$httpResult[duration];.]
+$enableDecimals[no]
+$var[Secs;$divide[$splitText[1];1000]]
+$var[Mins;$divide[$var[Secs];60]]
+$var[Sec;$calculate[$var[Secs]-($var[Mins]*60)]]
+$if[$var[Sec]<10] $var[S;$var[Sec] Second] $else $var[S;$var[Sec] Seconds] $endif
+$if[$var[Mins]<10] $var[M;$var[Mins] Minute] $else $var[M;$var[Mins] Minutes] $endif
+$author[Playing now!]
+$title[$httpResult[title]]
+$embeddedURL[$httpResult[url]]
+$addField[Author;╰ ` $httpResult[author] `;yes]
+$addField[Duration;╰ ` $var[M] $var[S] `;yes]
+$image[$replaceText[$httpResult[thumbnail];2048.jpg;maxresdefault.jpg]]
+$color[a86df8]
+$footer[#$channelName[$channelID] | $username#$discriminator[]]
+$footerIcon[$authorAvatar]
 
 $elseif[$var[a]==false]
-        $author[Added to Queue!]
-        $title[$var[b]]
-        $color[a86df8]
-        $footer[#$channelName[$channelID] | $username#$discriminator[]]
-        $footerIcon[$authorAvatar]
+$author[Added to Queue!]
+$title[$var[b]]
+$color[a86df8]
+$footer[#$channelName[$channelID] | $username#$discriminator[]]
+$footerIcon[$authorAvatar]
 $endif
