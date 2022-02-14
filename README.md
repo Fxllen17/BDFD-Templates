@@ -1,10 +1,10 @@
 # BDFD-Templates
 Here are some templates which you can use for free in your BDFD bot
 
-Also, if you are uploading your code somewhere like discord servers, do give proper credit.
+Also, if you are uploading your code somewhere like discord servers, do give credit.
 
 ### Any Issues?
-Ping me (Arctic#8059) in Official [BDFD Discord Server](https://discord.gg/botdesigner)
+Ping me (Arctic#8059) in Official [BDFD Discord Server](https://discord.gg/botdesigner) if its a code error, and not Replit
 
 ###### All codes are made by Arctic#8059
 
