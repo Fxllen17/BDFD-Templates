@@ -1,9 +1,13 @@
 # Important
 
-To use music in BDFD (Bot Designer for Discord), you will need to have your own lavalink first Scripting Language is BDScript 2
+Variables needed
 
-## How to get a lavalink server?
-[Click me!](https://youtu.be/oe6TO4sZWcI) to check tutorial on YouTube
+- Music (Value : Your Replit lavalink)
+
+- Track (Value : 0)
+
+
+Code Scripting Language is BDScript 2
 
 ## Screenshots
 #1 - Playing Track
@@ -11,4 +15,5 @@ To use music in BDFD (Bot Designer for Discord), you will need to have your own 
 ![Screenshot 1](https://i.postimg.cc/1X5qVy64/Screenshot-20220214-103017.png)
 
 #2 - Queued Track
-![Screenshot 2](
+
+[![Screenshot-20220214-104126.png](https://i.postimg.cc/BbkVnSwf/Screenshot-20220214-104126.png)](https://postimg.cc/V09R788K)
